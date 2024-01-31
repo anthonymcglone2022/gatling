@@ -69,7 +69,7 @@
 		  <configuration>
 		      <simulationsFolder>src/test/java</simulationsFolder>
 			  <includes>
-			  	<include>gatling.PostCodeSimulation</include>
+			  	<include>gatling.CheckPostcodesMeanResponseTime</include>
 			  </includes>
 			  <runMultipleSimulations>false</runMultipleSimulations>	  
 		  </configuration>
