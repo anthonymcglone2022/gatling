@@ -9,7 +9,8 @@ import static io.gatling.javaapi.http.HttpDsl.*;
 public class PostCodeSimulation extends Simulation { // 3
 	
 	
-  String URL = "http://localhost:9191/checkViaDatabase/W5 1AT";
+  //String URL = "http://localhost:9191/checkViaDatabase/W5 1AT";
+  String URL = "http://localhost:9191";
 
   HttpProtocolBuilder httpProtocol = http // 4
     .baseUrl(URL) // 5
@@ -20,22 +21,23 @@ public class PostCodeSimulation extends Simulation { // 3
     .userAgentHeader("Mozilla/5.0 (Windows NT 5.1; rv:31.0) Gecko/20100101 Firefox/31.0");
 
   ScenarioBuilder scn = scenario("PostCodeSimulation") // 7
-    .exec(
-    		http("request_1") // 8
-    		.get("/")
+    .feed(csv("postcode_feeder.csv").circular())
+	.exec(
+    		http("checkViaDatabase") // 8
+    		.get("/checkViaDatabase/" + "${post_code}")
     		.check(status().is(200))
-    		.check(bodyString().saveAs("responseBody"))
+    		//.check(bodyString().saveAs("responseBody"))
     )
     .exec(session -> {
-        System.out.println("Response Body:");
-        System.out.println(session.getString("responseBody"));
+        //System.out.println("Response Body:");
+        //System.out.println(session.getString("responseBody"));
         return session;
     })    
     .pause(5); // 10
 
   {
     setUp( // 11
-      scn.injectOpen(atOnceUsers(1)) // 12
+      scn.injectOpen(constantUsersPerSec(5).during(5)) // 12
     ).protocols(httpProtocol); // 13
   }
 }
