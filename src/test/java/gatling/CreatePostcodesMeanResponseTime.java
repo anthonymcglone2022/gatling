@@ -18,27 +18,36 @@ public class CreatePostcodesMeanResponseTime extends Simulation {
 	String path = "/createPostCode/";
 	String template = "{\"code\": \"#{code}\",\"inuse\": \"#{inuse}\",\"district\": \"#{district}\"}";
 
-  	HttpProtocolBuilder httpProtocol = http
-	    .baseUrl(BaseConf.baseURL)
-	    .acceptHeader(BaseConf.jsonHeader)
-	    .contentTypeHeader(BaseConf.jsonHeader)
-	    .doNotTrackHeader(BaseConf.doNotTrackHeader);
+	/**
+	 * Build HTTP protocol and load postcodes from JSON file
+	 */	
+	HttpProtocolBuilder httpProtocol = http
+		.baseUrl(BaseConf.baseURL)
+		.acceptHeader(BaseConf.jsonHeader)
+		.contentTypeHeader(BaseConf.jsonHeader)
+		.doNotTrackHeader(BaseConf.doNotTrackHeader);
   
-  	FeederBuilder<Object> jsonFeeder = jsonFile(postcode_feeder).circular();
+	FeederBuilder<Object> jsonFeeder = jsonFile(postcode_feeder).circular();
 
-  	ScenarioBuilder scn = scenario(scenarioDescription)
-          .feed(jsonFeeder)  
-          .exec(http(path)
-                  .post(path)
-                  .body(StringBody(template)).asJson()
-                  .check(status().is(BaseConf.twoHundred))
-           )
-          
-          .pause(1);
+	/**
+	 * Build the scenario to:
+	 * perform the POST request, verify the 200 response.
+	 */
+	ScenarioBuilder scn = scenario(scenarioDescription)
+		.feed(jsonFeeder)  
+		.exec(http(path)
+			.post(path)
+			.body(StringBody(template)).asJson()
+			.check(status().is(BaseConf.twoHundred))
+		)
+		.pause(1);
 
-  	{
+	/**
+	 * Specify users for the scenario and the final assertion(s)
+	 */
+	{
 		setUp(
-		  scn.injectOpen(constantUsersPerSec(usersPerSecond).during(maxDurationSeconds))
+		    scn.injectOpen(constantUsersPerSec(usersPerSecond).during(maxDurationSeconds))
 		)
 		.assertions(global().responseTime().mean().lt(milliseconds))
 		.protocols(httpProtocol);

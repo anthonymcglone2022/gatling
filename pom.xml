@@ -40,30 +40,31 @@
 
 	<build>
 		<plugins>
-	        <plugin>
-	            <groupId>net.alchim31.maven</groupId>
-	            <artifactId>scala-maven-plugin</artifactId>
-	            <version>${mvnPluginVersion}</version>
-	            <executions>
-	                <execution>
-	                    <goals>
-	                        <goal>testCompile</goal>
-	                    </goals>
-	                    <configuration>
-	                        <args>
-	                            <arg>-Jbackend:GenBCode</arg>
-	                            <arg>-Jdelambdafy:method</arg>
-	                            <arg>-release:11</arg>
-	                            <arg>-deprecation</arg>
-	                            <arg>-feature</arg>
-	                            <arg>-unchecked</arg>
-	                            <arg>-language:implicitConversions</arg>
-	                            <arg>-language:postfixOps</arg>
-	                        </args>
-	                    </configuration>
-	                </execution>
-	            </executions>
-	        </plugin>  	
+			<plugin>
+				<groupId>net.alchim31.maven</groupId>
+				<artifactId>scala-maven-plugin</artifactId>
+				<version>${mvnPluginVersion}</version>
+				
+				<executions>
+					<execution>
+						<goals>
+							<goal>testCompile</goal>
+						</goals>
+						<configuration>
+							<args>
+								<arg>-Jbackend:GenBCode</arg>
+								<arg>-Jdelambdafy:method</arg>
+								<arg>-release:11</arg>
+								<arg>-deprecation</arg>
+								<arg>-feature</arg>
+								<arg>-unchecked</arg>
+								<arg>-language:implicitConversions</arg>
+								<arg>-language:postfixOps</arg>
+							</args>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>  	
 			<plugin>
 				<groupId>io.gatling</groupId>
 				<artifactId>gatling-maven-plugin</artifactId>
