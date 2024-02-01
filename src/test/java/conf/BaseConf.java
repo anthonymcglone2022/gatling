@@ -10,7 +10,8 @@ public class BaseConf {
 	  /**
 	   * Header data
 	   */
-	  public static String acceptHeader = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
+	  public static String textHTMLHeader = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
+	  public static String jsonHeader = "application/json";
 	  public static String doNotTrackHeader = "1";
 	  public static String acceptLanguageHeader = "en-US,en;q=0.5";
 	  public static String acceptEncodingHeader = "gzip, deflate";

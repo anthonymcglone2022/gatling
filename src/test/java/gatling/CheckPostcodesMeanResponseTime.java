@@ -10,7 +10,7 @@ import static io.gatling.javaapi.http.HttpDsl.*;
 
 public class CheckPostcodesMeanResponseTime extends Simulation {
 
-  int limit = 3000;
+  int milliseconds = 3000;
   int usersPerSecond = 5;
   int maxDurationSeconds = 5;
   String postcode_feeder = "postcode_feeder.csv";
@@ -20,7 +20,7 @@ public class CheckPostcodesMeanResponseTime extends Simulation {
 
   HttpProtocolBuilder httpProtocol = http
     .baseUrl(BaseConf.baseURL)
-    .acceptHeader(BaseConf.acceptHeader)
+    .acceptHeader(BaseConf.textHTMLHeader)
     .doNotTrackHeader(BaseConf.doNotTrackHeader)
     .acceptLanguageHeader(BaseConf.acceptLanguageHeader)
     .acceptEncodingHeader(BaseConf.acceptEncodingHeader)
@@ -39,7 +39,7 @@ public class CheckPostcodesMeanResponseTime extends Simulation {
     setUp(
       scn.injectOpen(constantUsersPerSec(usersPerSecond).during(maxDurationSeconds))
     )
-    .assertions(global().responseTime().mean().lt(limit))
+    .assertions(global().responseTime().mean().lt(milliseconds))
     .protocols(httpProtocol);
   }
 }
