@@ -47,7 +47,7 @@ public class CheckPostcodesMeanResponseTime extends Simulation {
 	 */
 	{
 		setUp(
-            scn.injectOpen(constantUsersPerSec(usersPerSecond).during(maxDurationSeconds))
+			scn.injectOpen(constantUsersPerSec(usersPerSecond).during(maxDurationSeconds))
 		)
 		.assertions(global().responseTime().mean().lt(milliseconds))
 		.protocols(httpProtocol);
