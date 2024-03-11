@@ -6,7 +6,8 @@
 
 ## Pre-requisites before building the project
 
-- Follow the setup in the postcodes project. It has the instructions for Maven, Java & MySQL. 
+- Install Maven and Java.
+- Run the postcodes project. 
 
 ## Running the scripts
 
