@@ -6,7 +6,7 @@
 
 ## Pre-requisites before building the project
 
-- Install Maven and Java.
+- Install [Maven 3](https://maven.apache.org/index.html) and [Java](https://www.oracle.com/java/technologies/downloads/)
 - Run the postcodes project. 
 
 ## Running the scripts
